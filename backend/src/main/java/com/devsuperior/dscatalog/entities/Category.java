@@ -43,6 +43,11 @@ public class Category implements Serializable{
 		this.id = null;
 		this.name = dto.getName();
 	}
+	
+	public Category(Long id, CategoryDTO dto) {
+		this.id = id;
+		this.name = dto.getName();
+	}
 
 	public Long getId() {
 		return id;

@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
 
 @Entity
@@ -61,14 +62,17 @@ public class Product implements Serializable{
 		this.price = entity.getPrice();
 		this.imgUrl = entity.getImgUrl();	
 		this.date = entity.getDate();
+		this.categories.clear();
+		entity.getCategories().forEach(catDTO -> this.categories.add(new Category(catDTO.getId(), catDTO)));
+	}
+	
+	public Product(Long id, ProductDTO entity) {
+		this(entity);
+		this.id = id;
 	}
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
