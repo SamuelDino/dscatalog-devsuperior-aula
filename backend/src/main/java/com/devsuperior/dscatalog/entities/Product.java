@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.devsuperior.dscatalog.dto.ProductDTO;
+
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable{
@@ -39,6 +41,9 @@ public class Product implements Serializable{
 				joinColumns = @JoinColumn(name = "product_id"),
 				inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
+	
+	public Product() {
+	}
 
 	public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
 		this.id = id;
@@ -47,6 +52,15 @@ public class Product implements Serializable{
 		this.price = price;
 		this.imgUrl = imgUrl;	
 		this.date = date;
+	}
+	
+	public Product(ProductDTO entity) {
+		this.id = null;
+		this.name = entity.getName();
+		this.description = entity.getDescription();
+		this.price = entity.getPrice();
+		this.imgUrl = entity.getImgUrl();	
+		this.date = entity.getDate();
 	}
 
 	public Long getId() {
