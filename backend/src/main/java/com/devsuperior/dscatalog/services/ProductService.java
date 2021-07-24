@@ -1,8 +1,8 @@
 package com.devsuperior.dscatalog.services;
 
-import java.util.List;
+
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 import javax.persistence.EntityNotFoundException;
 
@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +28,8 @@ public class ProductService {
 	private ProductRepository repository;
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(PageRequest pageRequest){	
-		return repository.findAll(pageRequest).map(x -> new ProductDTO(x, x.getCategories()));
+	public Page<ProductDTO> findAllPaged(Pageable pageable){	
+		return repository.findAll(pageable).map(x -> new ProductDTO(x, x.getCategories()));
 	}
 
 	@Transactional(readOnly = true)
